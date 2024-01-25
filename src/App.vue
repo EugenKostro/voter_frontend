@@ -1,32 +1,32 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar app color="black">
+      <v-toolbar-title class="white--text">VOTER</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <router-link to="/create-room" class="navigation-button"
+        >CREATE ROOM</router-link
+      >
+      <router-link to="/login" class="navigation-button">LOGIN</router-link>
+      <router-link to="/registration" class="navigation-button"
+        >REGISTRATION</router-link
+      >
+    </v-app-bar>
+
+    <router-view></router-view>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  name: "App",
+};
+</script>
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+<style>
+.navigation-button {
+  text-decoration: none;
+  color: white !important;
+  margin-right: 16px;
+  font-weight: bold;
 }
 </style>
