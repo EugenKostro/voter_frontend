@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CreateRoomView from "../views/CreateRoomView.vue";
+import RoomView from "../views/RoomView.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     name: "createRoom",
     component: CreateRoomView,
   },
+  {
+    path: '/room',
+    name: 'room',
+    component: RoomView
+  }
 ];
 
 const router = new VueRouter({

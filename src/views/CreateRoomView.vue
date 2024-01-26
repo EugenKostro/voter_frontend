@@ -6,39 +6,43 @@
       <router-link to="/" class="white--text">HOME</router-link>
     </v-app-bar>
 
-    <v-parallax
-      src="@/assets/Background.png"
-      height="850"
-    >
-    </v-parallax>
+    <v-parallax src="@/assets/Background.png" height="850"> </v-parallax>
     <v-container fluid class="pa-0 white-background">
-      <v-spacer></v-spacer> 
+      <v-spacer></v-spacer>
       <v-row justify="center">
         <v-col cols="12" sm="8" md="6">
-          <v-card class="mb-12"> 
-            <v-card-title>
-              Room Details
-            </v-card-title>
+          <v-card class="mb-12">
+            <v-card-title> Room Details </v-card-title>
+            <v-card-text>
+              <v-form>
+                <v-text-field label="Room Name" required></v-text-field>
+              </v-form>
+            </v-card-text>
+            <v-card-title> Number of participants </v-card-title>
             <v-card-text>
               <v-form>
                 <v-text-field
-                  label="Room Name"
+                  label="Number of participants"
                   required
                 ></v-text-field>
               </v-form>
             </v-card-text>
+            <v-card-title> Time to vote </v-card-title>
+            <v-card-text>
+              <v-form>
+                <v-text-field label="Time" required></v-text-field>
+              </v-form>
+            </v-card-text>
             <v-card-actions>
-              <v-btn color="primary" class="mr-4">
+              <v-btn color="white" class="mr-4" @click="createRoom">
                 Create
               </v-btn>
-              <v-btn color="grey" @click="clearForm">
-                Clear
-              </v-btn>
+              <v-btn color="red" @click="clearForm"> Clear </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
-      <v-spacer></v-spacer> 
+      <v-spacer></v-spacer>
     </v-container>
   </v-app>
 </template>
@@ -46,6 +50,11 @@
 <script>
 export default {
   name: "CreateRoomView",
+  methods: {
+    createRoom() {
+      this.$router.push({ name: "room" });
+    },
+  },
 };
 </script>
 
@@ -66,13 +75,10 @@ export default {
 }
 
 .form-container {
-  margin-top: 1000px; 
-  padding-bottom: 1500px; 
+  margin-top: 1000px;
+  padding-bottom: 1200px;
 }
 .white-background {
-  background-color: white; 
+  background-color: white;
 }
-
-
 </style>
-
