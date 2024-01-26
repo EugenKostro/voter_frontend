@@ -23,10 +23,5 @@ export default {
 </script>
 
 <style>
-.navigation-button {
-  text-decoration: none;
-  color: white !important;
-  margin-right: 16px;
-  font-weight: bold;
-}
+
 </style>
