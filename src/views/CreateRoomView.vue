@@ -8,7 +8,7 @@
 
     <v-parallax
       src="@/assets/Background.png"
-      height="500"
+      height="850"
     >
     </v-parallax>
     <v-container fluid class="pa-0 white-background">
@@ -66,10 +66,13 @@ export default {
 }
 
 .form-container {
-  margin-top: 250px; 
-  padding-bottom: 50px; 
+  margin-top: 1000px; 
+  padding-bottom: 1500px; 
 }
 .white-background {
   background-color: white; 
 }
+
+
 </style>
+
