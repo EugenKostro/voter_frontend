@@ -39,17 +39,17 @@ export default {
   font-weight: bold;
   font-size: 3em;
   text-shadow: 4px 4px 8px rgba(242, 242, 242, 0.8);
-  padding: 0 5%; 
+  padding: 0 5%;
   box-sizing: border-box;
 }
 
 .welcome-text {
   text-align: left;
-  margin-left: 2vw; 
+  margin-left: 2vw;
 }
 
 .vote-text {
   text-align: right;
-  margin-right: 5vw; 
+  margin-right: 5vw;
 }
 </style>
