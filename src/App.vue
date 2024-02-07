@@ -33,18 +33,32 @@
 <script>
 export default {
   name: "App",
-  computed: {
-    isLoggedIn() {
-      return !!localStorage.getItem("userToken");
-    },
-    isLoginOrRegisterPage() {
-      return this.$route.path === "/login" || this.$route.path === "/register";
-    },
+  data() {
+    return {
+      isLoggedIn: !!localStorage.getItem("userToken"),
+    };
+  },
+  created() {
+    this.$root.$on("user-logged-in", this.updateLoginStatus);
+    this.$root.$on("user-logged-out", this.updateLoginStatus);
+  },
+  beforeDestroy() {
+    this.$root.$off("user-logged-in", this.updateLoginStatus);
+    this.$root.$off("user-logged-out", this.updateLoginStatus);
   },
   methods: {
     logout() {
       localStorage.removeItem("userToken");
+      this.$root.$emit("user-logged-out");
       this.$router.push("/login");
+    },
+    updateLoginStatus() {
+      this.isLoggedIn = !!localStorage.getItem("userToken");
+    },
+  },
+  computed: {
+    isLoginOrRegisterPage() {
+      return this.$route.path === "/login" || this.$route.path === "/register";
     },
   },
 };

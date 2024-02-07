@@ -79,8 +79,10 @@ export default {
         })
         .then((data) => {
           localStorage.setItem("userToken", data.token);
+          this.$root.$emit("user-logged-in");
           this.$router.push("/");
         })
+
         .catch((error) => {
           console.error("Error during registration:", error);
         });
