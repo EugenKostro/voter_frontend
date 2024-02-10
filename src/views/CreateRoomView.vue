@@ -58,33 +58,43 @@ export default {
   },
   methods: {
     createRoom() {
-      const token = localStorage.getItem("userToken");
-      fetch("http://localhost:3000/rooms/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Dodajte token ovdje
-        },
-        body: JSON.stringify({
-          name: this.roomName,
-          maxParticipants: this.numberOfParticipants,
-          durationInMinutes: this.durationInMinutes,
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to create room");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("Room created successfully", data);
-          // Obrada uspješnog odgovora
-        })
-        .catch((error) => {
-          console.error("Error creating room:", error);
-        });
+  const token = localStorage.getItem("userToken");
+  fetch("http://localhost:3000/rooms/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify({
+      name: this.roomName,
+      maxParticipants: this.numberOfParticipants,
+      durationInMinutes: this.durationInMinutes,
+    }),
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Failed to create room");
+    }
+    return response.json();
+  })
+
+.then((data) => {
+  if (data.roomToken) {
+    this.$router.push({
+      name: "room",
+      params: { roomToken: data.roomToken }
+    });
+  } else {
+    console.error("Room token is missing from the response");
+  }
+})
+
+
+
+  .catch((error) => {
+    console.error("Error creating room:", error);
+  });
+},
     clearForm() {
       this.roomName = "";
       this.numberOfParticipants = "";

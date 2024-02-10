@@ -27,11 +27,11 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: "/room",
-    name: "room",
+    path: '/room/:roomToken',
+    name: 'room',
     component: RoomView,
-    meta: { requiresAuth: true } 
-  },
+    props: true // Ovo omogućava da parametri rute budu proslijeđeni kao props komponenti
+  },  
   {
     path: "/register",
     name: "register",
