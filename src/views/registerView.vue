@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     register() {
-      fetch("http://localhost:3000/user/register", {
+      fetch("https://voter-p3p3.onrender.com/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -66,7 +66,7 @@ export default {
     fetchRoomData() {
       const roomToken = this.$route.params.roomToken;
       this.voteLink = `${window.location.origin}/room/${roomToken}`;
-      fetch(`http://localhost:3000/rooms/${roomToken}`, {
+      fetch(`https://voter-p3p3.onrender.com/rooms/${roomToken}`, {
         headers: this.authHeader(),
       })
         .then((response) => response.json())
@@ -89,7 +89,7 @@ export default {
       }
 
       const roomToken = this.$route.params.roomToken;
-      fetch(`http://localhost:3000/rooms/vote/${roomToken}`, {
+      fetch(`https://voter-p3p3.onrender.com/rooms/vote/${roomToken}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -145,7 +145,7 @@ export default {
     },
     async endVoting() {
   try {
-    const response = await fetch(`http://localhost:3000/rooms/end/${this.$route.params.roomToken}`, {
+    const response = await fetch(`https://voter-p3p3.onrender.com/rooms/end/${this.$route.params.roomToken}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

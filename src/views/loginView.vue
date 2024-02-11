@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     login() {
-      fetch("http://localhost:3000/user/login", {
+      fetch("https://voter-p3p3.onrender.com/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

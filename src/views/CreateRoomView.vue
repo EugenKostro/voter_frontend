@@ -59,7 +59,7 @@ export default {
   methods: {
     createRoom() {
   const token = localStorage.getItem("userToken");
-  fetch("http://localhost:3000/rooms/create", {
+  fetch("https://voter-p3p3.onrender.com/rooms/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
