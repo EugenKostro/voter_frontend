@@ -25,7 +25,7 @@
   <style scoped>
   .unauthorized-text {
     position: absolute;
-    bottom: 50px; /* Postavlja tekst 50px od dna */
+    bottom: 50px; 
     left: 50%;
     transform: translateX(-50%);
     text-align: center;

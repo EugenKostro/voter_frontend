@@ -11,9 +11,19 @@
         <v-col cols="12" md="8" lg="6">
           <v-card class="pa-4" color="white">
             <div class="voting-buttons">
-              <v-btn class="vote-btn" @click="vote('YES')" :disabled="hasVoted">YES</v-btn>
-              <v-btn class="vote-btn" @click="vote('NO')" :disabled="hasVoted">NO</v-btn>
-              <v-btn class="vote-btn" @click="vote('DONT_KNOW')" :disabled="hasVoted">DON'T KNOW</v-btn>
+              <v-btn class="vote-btn" @click="vote('YES')" :disabled="hasVoted"
+                >YES</v-btn
+              >
+              <v-btn class="vote-btn" @click="vote('NO')" :disabled="hasVoted"
+                >NO</v-btn
+              >
+              <v-btn
+                class="vote-btn"
+                @click="vote('DONT_KNOW')"
+                :disabled="hasVoted"
+                >DON'T KNOW</v-btn
+              >
+              <v-btn v-if="voted >= maxParticipants" @click="endVoting">STATISTICS</v-btn>
             </div>
             <v-text-field
               label="Vote Link"
@@ -25,7 +35,6 @@
               @click:append-outer="copyVoteLink"
             ></v-text-field>
             <div class="statistics">
-              <div>Number of voters: {{ numberOfVoters }}</div>
               <div>Voted: {{ voted }}</div>
               <div>Time left: {{ timeLeft }}</div>
             </div>
@@ -40,32 +49,38 @@
 export default {
   data() {
     return {
-      roomName: '',
-      timeLeft: '',
-      numberOfVoters: 0,
+      roomName: "",
+      timeLeft: "",
       voted: 0,
       voters: [],
-      voteLink: '',
+      voteLink: "",
       endTime: null,
       intervalId: null,
       hasVoted: false,
+      numberOfParticipants: 0,
+      isCreator: false,
+      maxParticipants: 0,
     };
   },
   methods: {
     fetchRoomData() {
       const roomToken = this.$route.params.roomToken;
-      // Ispravak za generiranje linka
       this.voteLink = `${window.location.origin}/room/${roomToken}`;
       fetch(`http://localhost:3000/rooms/${roomToken}`, {
         headers: this.authHeader(),
       })
-      .then((response) => response.json())
-      .then((data) => {
-        this.roomName = data.name;
-        this.endTime = new Date(data.expiresAt).getTime();
-        this.updateTimeLeft();
-      })
-      .catch((error) => console.error("Error:", error));
+        .then((response) => response.json())
+        .then((data) => {
+  this.roomName = data.name;
+  this.endTime = new Date(data.expiresAt).getTime();
+  this.maxParticipants = data.maxParticipants;
+  this.voted = data.votes.length;
+  this.updateTimeLeft();
+  this.numberOfParticipants = data.maxParticipants;
+  this.isCreator = data.creatorId === localStorage.getItem("userId");
+})
+
+        .catch((error) => console.error("Error:", error));
     },
     vote(option) {
       if (this.hasVoted) {
@@ -82,18 +97,18 @@ export default {
         },
         body: JSON.stringify({ vote: option }),
       })
-      .then((response) => response.json())
-      .then((data) => {
-  if (data.message === "Vote registered.") {
-    this.hasVoted = true;
-    localStorage.setItem(`hasVoted_${this.$route.params.roomToken}`, 'true');
-    alert("Your vote has been registered.");
-  }
-})
-
-      .catch((error) => {
-        console.error("Error during voting:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.message === "Vote registered.") {
+            this.hasVoted = true;
+            localStorage.setItem(`hasVoted_${roomToken}`, "true");
+            alert("Your vote has been registered.");
+            this.fetchRoomData(); 
+          }
+        })
+        .catch((error) => {
+          console.error("Error during voting:", error);
+        });
     },
     authHeader() {
       const token = localStorage.getItem("userToken");
@@ -110,27 +125,53 @@ export default {
         } else {
           const minutes = Math.floor(timeLeft / 60000);
           const seconds = ((timeLeft % 60000) / 1000).toFixed(0);
-          this.timeLeft = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+          this.timeLeft = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
         }
       }, 1000);
     },
     copyVoteLink() {
-      navigator.clipboard.writeText(this.voteLink).then(() => {
-        this.$toast.open({
-          message: 'Vote link copied to clipboard!',
-          type: 'success',
-        });
-      }, (err) => {
-        console.error('Could not copy text: ', err);
-        alert('Failed to copy the link.');
-      });
+      navigator.clipboard.writeText(this.voteLink).then(
+        () => {
+          this.$toast.open({
+            message: "Vote link copied to clipboard!",
+            type: "success",
+          });
+        },
+        (err) => {
+          console.error("Could not copy text: ", err);
+          alert("Failed to copy the link.");
+        }
+      );
     },
+    async endVoting() {
+  try {
+    const response = await fetch(`http://localhost:3000/rooms/end/${this.$route.params.roomToken}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...this.authHeader(),
+      },
+    });
+    const data = await response.json();
+    if (response.ok) {
+      alert(`Voting ended. Results: YES: ${data.results.YES}, NO: ${data.results.NO}, DON'T KNOW: ${data.results["DON'T KNOW"]}`);
+    } else {
+      alert(data.message || "Failed to end voting.");
+    }
+  } catch (error) {
+    console.error("Error ending voting:", error);
+    alert("An error occurred while trying to end voting.");
+  }
+},
+
   },
   mounted() {
-  this.fetchRoomData();
-  const hasVoted = localStorage.getItem(`hasVoted_${this.$route.params.roomToken}`);
-  this.hasVoted = !!hasVoted;
-},
+    this.fetchRoomData();
+    const hasVoted = localStorage.getItem(
+      `hasVoted_${this.$route.params.roomToken}`
+    );
+    this.hasVoted = !!hasVoted;
+  },
   beforeDestroy() {
     if (this.intervalId) clearInterval(this.intervalId);
   },
@@ -162,5 +203,4 @@ export default {
   text-align: center;
 }
 
-/* Additional styles as needed */
 </style>

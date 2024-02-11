@@ -9,7 +9,7 @@
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
           <v-card class="pa-5" dark elevation="12">
-            <v-card-title class="text-h5">Prijava</v-card-title>
+            <v-card-title class="text-h5">Log in</v-card-title>
             <v-card-text>
               <v-form @submit.prevent="login">
                 <v-text-field
@@ -20,13 +20,13 @@
                   required
                 ></v-text-field>
                 <v-text-field
-                  label="Lozinka"
+                  label="Password"
                   v-model="password"
                   type="password"
                   outlined
                   required
                 ></v-text-field>
-                <v-btn type="submit" color="primary">Prijavi se</v-btn>
+                <v-btn type="submit" color="primary">Log in</v-btn>
               </v-form>
             </v-card-text>
           </v-card>

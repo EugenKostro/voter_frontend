@@ -9,17 +9,17 @@
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
           <v-card class="pa-5" dark elevation="12">
-            <v-card-title class="text-h5"> Registracija </v-card-title>
+            <v-card-title class="text-h5"> Registration </v-card-title>
             <v-card-text>
               <v-form>
                 <v-text-field
-                  label="Ime"
+                  label="First name"
                   v-model="firstName"
                   outlined
                   required
                 ></v-text-field>
                 <v-text-field
-                  label="Prezime"
+                  label="Last name"
                   v-model="lastName"
                   outlined
                   required
@@ -31,13 +31,13 @@
                   required
                 ></v-text-field>
                 <v-text-field
-                  label="Lozinka"
+                  label="Password"
                   v-model="password"
                   type="password"
                   outlined
                   required
                 ></v-text-field>
-                <v-btn @click="register" color="primary">Registriraj se</v-btn>
+                <v-btn @click="register" color="primary">Register</v-btn>
               </v-form>
             </v-card-text>
           </v-card>

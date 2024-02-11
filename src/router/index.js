@@ -30,7 +30,7 @@ const routes = [
     path: '/room/:roomToken',
     name: 'room',
     component: RoomView,
-    props: true // Ovo omogućava da parametri rute budu proslijeđeni kao props komponenti
+    props: true
   },  
   {
     path: "/register",
