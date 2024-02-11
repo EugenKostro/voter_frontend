@@ -52,4 +52,5 @@ export default {
   text-align: right;
   margin-right: 5vw;
 }
+
 </style>
