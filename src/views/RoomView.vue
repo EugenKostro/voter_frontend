@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app color="black">
-      <v-toolbar-title class="white--text">VOTER</v-toolbar-title>
+      <v-toolbar-title class="white--text">{{ roomName || "VOTER" }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn class="white--text" text @click="$router.push('/')">HOME</v-btn>
     </v-app-bar>
