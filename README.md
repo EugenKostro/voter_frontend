@@ -15,8 +15,8 @@ Voter sadrži sljedeće funckionalnosti:
 ### Linkovi
 - Link na javni prototip: [https://www.figma.com/file/PAl7mTzfRZ2ztNRKwhjKaC/CodeCrush---javni-prototip?type=design&node-id=5-714&t=rINKoEPtDRZYWmWi-0](https://github.com/EugenKostro/voter_frontend/tree/prototip)
 - Link na web-aplikaciju: https://voteranonymous.netlify.app/
-- Video link: 
-- Link dokumentacije: [Voter-Dokumentacija.pdf](https://github.com/EugenKostro/voter_frontend/files/14239394/Voter-Dokumentacija.pdf)
+- Video link: https://www.youtube.com/watch?v=Nt-mCYGTD54
+- Link dokumentacije: [VoterDokumentacijaEugenKoštro.pdf](https://github.com/EugenKostro/voter_frontend/files/14248694/VoterDokumentacijaEugenKostro.pdf)
 - Link prezentacije: [VOTERPrezentacija.pdf](https://github.com/EugenKostro/voter_frontend/files/14240529/VOTERPrezentacija.pdf)
 
 ---
